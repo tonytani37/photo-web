@@ -22,9 +22,9 @@ async function loadGallery() {
 
     try {
         const response = await fetch(MICROCMS_BASE_URL, {
-            headers: {
-                'X-API-KEY': MICROCMS_API_KEY,
-            },
+            // headers: {
+            //     'X-API-KEY': MICROCMS_API_KEY,
+            // },
         });
 
         if (!response.ok) {
