@@ -1,10 +1,10 @@
 // --- 環境設定 ---
 // ⚠️ 以下の定数をご自身の情報に置き換えてください
-const MICROCMS_ENDPOINT = 'photo'; // microCMSのエンドポイント名（例: 'photos'など）
+// const MICROCMS_ENDPOINT = 'photo'; // microCMSのエンドポイント名（例: 'photos'など）
 const GCS_BASE_URL = 'https://storage.googleapis.com/';
 
 // microCMS APIのベースURL
-const MICROCMS_BASE_URL = `https://info-oshirase.microcms.io/api/v1/${MICROCMS_ENDPOINT}`; // YOUR_SERVICE_IDも置き換えてください
+const MICROCMS_BASE_URL = `https://info-oshirase.microcms.io/api/v1/photo`; // YOUR_SERVICE_IDも置き換えてください
 // const MICROCMS_BASE_URL = `http://localhost:8080/api/v1/${MICROCMS_ENDPOINT}`; // YOUR_SERVICE_IDも置き換えてください
 
 // --- DOM要素の取得 ---
