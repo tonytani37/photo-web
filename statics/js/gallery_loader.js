@@ -21,11 +21,7 @@ async function loadGallery() {
     }
 
     try {
-        const response = await fetch(MICROCMS_BASE_URL, {
-            headers: {
-                // 'X-API-KEY': MICROCMS_API_KEY,
-            },
-        });
+        const response = fetch(MICROCMS_BASE_URL);
 
         if (!response.ok) {
             throw new Error(`microCMSからのデータ取得に失敗しました: ${response.statusText}`);
