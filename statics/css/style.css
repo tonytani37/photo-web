@@ -54,6 +54,23 @@ body {
     margin-bottom: 10px;
 }
 
+/* 4. トップ左上キャプションの絶対配置 */
+.caption-text {
+    position: absolute;
+    /* .containerの左右余白(width: 90%)に合わせた位置 */
+    left: 5%; 
+    /* 上端からの距離 */
+    top: 20px; 
+    
+    color: white; /* 既存のヒーローテキストと同じ色 */
+    font-size: 1.1em; /* 適切なフォントサイズに調整 */
+    z-index: 2; /* オーバーレイより上に表示 */
+    
+    /* 画面幅が広い場合の調整（オプション）*/
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
 /* 2. ギャラリーセクション (タイル状) */
 .gallery-section {
     padding: 40px 0;
