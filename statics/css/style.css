@@ -151,7 +151,7 @@ body {
 }
 
 /* モーダルの中身 */
-.modal-content {
+/* .modal-content {
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -161,10 +161,24 @@ body {
     transform: translate(-50%, -50%);
     max-width: 100%;
     max-height: 100%;
-    /* 画面いっぱいの表示設定はコメントアウトされています。
-       この設定により、モーダルは画面中央に、縦横の最大サイズを制限して表示されます。 */
     max-width: 95%;
     max-height: 85vh;
+} */
+/* モーダルの中身 */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 85vh;
+    /* 💡 修正点: コンテンツが max-height を超えた場合、縦スクロールを許可する */
+    overflow-y: auto; 
+    /* オプション: スクロールバーがコンテンツを隠さないよう、padding-bottomを少し増やしても良い */
+    padding-bottom: 30px; 
 }
 
 .modal-content img {
