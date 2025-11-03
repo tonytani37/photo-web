@@ -1,6 +1,5 @@
 // --- 環境設定 ---
 // ⚠️ 以下の定数をご自身の情報に置き換えてください
-// const MICROCMS_API_KEY = 'uvmCNlFCsI2uzLJ4QwKvp8Rf0Nldi2CfTnej'; 
 const MICROCMS_ENDPOINT = 'photo'; // microCMSのエンドポイント名（例: 'photos'など）
 const GCS_BASE_URL = 'https://storage.googleapis.com/';
 
