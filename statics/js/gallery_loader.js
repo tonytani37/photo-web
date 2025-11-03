@@ -11,18 +11,6 @@ const MICROCMS_BASE_URL = `https://t-cms-api-281456272382.asia-northeast2.run.ap
 const photoGridElement = document.getElementById('photo-grid');
 const modalsContainerElement = document.getElementById('modals-container');
 
-const FLASK_PROXY_BASE_URL = 'https://t-cms-api-281456272382.asia-northeast2.run.app/api/v1';
-// const FLASK_PROXY_BASE_URL = 'http://localhost:8080/api/v1';
-
-// MicroCMSのコンテンツエンドポイント（例: blogs）とクエリパラメータ
-const endpoint = 'photo';
-const queryParams = new URLSearchParams({
-    limit: 3,
-    fields: 'id,class,title,publishedAt,link' // 取得フィールドを制限
-});
-
-const url = `${FLASK_PROXY_BASE_URL}/${endpoint}?${queryParams.toString()}`;
-
 /**
  * microCMSからギャラリーデータを取得し、HTMLを構築するメイン関数
  */
@@ -33,7 +21,7 @@ async function loadGallery() {
     }
 
     try {
-        const response = fetch(url);
+        const response = await fetch(url);
 
         if (!response.ok) {
             throw new Error(`microCMSからのデータ取得に失敗しました: ${response.statusText}`);
