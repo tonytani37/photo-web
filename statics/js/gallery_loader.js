@@ -19,9 +19,9 @@ async function loadGallery() {
         console.error("ギャラリー表示に必要なDOM要素が見つかりません。");
         return;
     }
-
+    const fetchUrl = `${MICROCMS_BASE_URL}?limit=30`;
     try {
-        const response = await fetch(MICROCMS_BASE_URL);
+        const response = await fetch(fetchUrl);
 
         if (!response.ok) {
             throw new Error(`microCMSからのデータ取得に失敗しました: ${response.statusText}`);
