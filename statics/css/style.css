@@ -23,7 +23,7 @@ body {
     height: 80vh;
     /* 背景画像の設定 (実際の画像URLに置き換えてください) */
     background-image: url('statics/img/20250906-P9060021.jpg');
-    background-image: url('https://storage.googleapis.com/react-images-tonytani37/my-photo/20250906-P9060021.jpg');
+    /* background-image: url('https://storage.googleapis.com/react-images-tonytani37/my-photo/20250906-P9060021.jpg'); */
     background-size: cover;
     background-position: center;
     

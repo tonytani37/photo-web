@@ -59,7 +59,7 @@ async function loadGallery() {
             // 拡大画像とタイル画像は同じURLを使用
             modalHTML += `
                 <div id="${modalId}" class="modal-window">
-                    <a href="#" class="modal-overlay"></a>
+                    <a href="#${modalId}" class="modal-overlay"></a>
                     <div class="modal-content">
                         <a href="#" class="modal-close-button">×</a>
                         <img src="${imageUrl}" alt="${titleComment}">
