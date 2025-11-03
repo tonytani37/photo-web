@@ -61,7 +61,7 @@ async function loadGallery() {
                 <div id="${modalId}" class="modal-window">
                     <a href="#${modalId}" class="modal-overlay"></a>
                     <div class="modal-content">
-                        <a href="#${modalId}" class="modal-close-button">×</a>
+                        <a href="#" class="modal-close-button">×</a>
                         <img src="${imageUrl}" alt="${titleComment}">
                         <p>${titleComment}</p>
                     </div>
