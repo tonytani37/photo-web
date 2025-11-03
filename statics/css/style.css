@@ -1,0 +1,195 @@
+/* リセットCSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* 1. トップ画像セクション (画面いっぱいのヒーロー) */
+.hero-section {
+    /* 画面の高さいっぱい */
+    height: 80vh;
+    /* 背景画像の設定 (実際の画像URLに置き換えてください) */
+    background-image: url('../img/20250906-P9060021.jpg');
+    /* background-image: url('https://storage.googleapis.com/react-images-tonytani37/my-photo/20251019-DSC01793.jpeg'); */
+    background-size: cover;
+    background-position: center;
+    
+    /* コンテンツを中央に配置 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white; /* テキストの色 */
+    /* 背景画像を暗くするオーバーレイ */
+    position: relative;
+    z-index: 1;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* 暗めのオーバーレイ */
+    z-index: -1;
+}
+
+.hero-content h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+/* 2. ギャラリーセクション (タイル状) */
+.gallery-section {
+    padding: 40px 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.gallery-section h2 {
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.photo-grid {
+    /* CSS Gridによるタイルレイアウト */
+    display: grid;
+    /* 💡 修正: 最小幅を200pxに縮小 */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px; /* 写真間の間隔 */
+}
+
+.gallery-item {
+    display: block;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* 親のaタグ全体をクリック可能にする */
+    cursor: pointer;
+    /* 💡 修正: 高さを200pxに縮小 */
+    height: 200px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* ホバーエフェクト */
+    transition: transform 0.3s ease;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05); /* 拡大 */
+}
+
+/* 3. モーダル（ポップアップ） */
+.modal-window {
+    /* デフォルトで非表示 */
+    visibility: hidden;
+    opacity: 0;
+    /* ポップアップを画面全体に固定 */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    
+    /* トランジションでアニメーション */
+    transition: opacity 0.3s;
+    
+    /* 最前面に表示 */
+    z-index: 1000;
+}
+
+/* URLハッシュが変わったとき（a href="#modal-1"がクリックされたとき）に表示 */
+.modal-window:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* モーダルの背景（外側をクリックで閉じれるようにする） */
+.modal-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+}
+
+/* モーダルの中身 */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
+    /* 画面いっぱいの表示設定はコメントアウトされています。
+       この設定により、モーダルは画面中央に、縦横の最大サイズを制限して表示されます。 */
+    max-width: 95%;
+    max-height: 85vh;
+}
+
+.modal-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 15px;
+    border-radius: 5px;
+}
+
+/* 閉じるボタン */
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2em;
+    text-decoration: none;
+    color: #333;
+    line-height: 1;
+    z-index: 100;
+/* 💡 ボタンの標準スタイルをリセット */
+    background: none; /* 背景を透明にする */
+    border: none;    /* 枠線をなくす */
+    cursor: pointer; /* カーソルをポインターにする */
+    padding: 0;      /* パディングをリセット */
+    
+    color: white; /* モーダルの背景が暗いため色を白に変更 */
+}
+
+/* フッターセクション */
+.site-footer {
+    /* 💡 背景色を緑に設定 */
+    background-color: #bcbcbc; /* 例: 明るめの緑 */
+    padding: 20px 0;
+    
+    /* 💡 テキストを中央に配置 */
+    text-align: center; 
+}
+
+.site-footer p {
+    /* 💡 文字色をグレーに設定 */
+    color: #7f8c8d; /* 例: 落ち着いたグレー */
+    margin: 0;
+    font-size: 0.9em;
+}
