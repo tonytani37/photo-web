@@ -158,18 +158,14 @@ body {
     position: absolute;
     /* --- 【修正点】中央寄せを解除し、左端に配置 --- */
     top: 50%;
-    /* left: 50%; の代わりに left: 0 を設定 */
-    left: 0;
-    /* transform: translate(-50%, -50%); を変更または上書き */
-    transform: translateY(-50%); 
-    
-    /* --- 【修正点】横幅をブラウザいっぱいに --- */
-    width: 100%; /* 横幅を100%に設定 */
+    left: 50%; 
+    /* left: 0; */
+    transform: translate(-50%, -50%);
+    /* transform: translateY(-50%);  */
+    width: 85%; /* 横幅を85%に設定 */
     max-width: none; /* 最大幅の制限を解除 */
-    
     /* 縦の配置は維持 */
     max-height: 95vh;
-    
     /* コンテンツが max-height を超えた場合、縦スクロールを許可する */
     overflow-y: auto; 
     padding-bottom: 30px; 
