@@ -199,10 +199,9 @@ body {
     color: rgb(82, 82, 82); /* モーダルの背景が暗いため色を白に変更 */
 }
 
-/* フッターセクション */
 .site-footer {
     /* 💡 背景色を緑に設定 */
-    background-color: #bcbcbc; /* 例: 明るめの緑 */
+    background-color: #888888;
     padding: 20px 0;
     
     /* 💡 テキストを中央に配置 */
@@ -211,7 +210,24 @@ body {
 
 .site-footer p {
     /* 💡 文字色をグレーに設定 */
-    color: #7f8c8d; /* 例: 落ち着いたグレー */
+    color: #ffffff; /* 例: 落ち着いたグレー */
+    margin: 0;
+    font-size: 0.9em;
+}
+
+/* フッターセクション */
+.site-message {
+    /* 💡 背景色を緑に設定 */
+    background-color: #bcbcbc; /* 例: 明るめの緑 */
+    padding: 20px 0;
+    
+    /* 💡 テキストを中央に配置 */
+    text-align: center; 
+}
+
+.site-message p {
+    /* 💡 文字色をグレーに設定 */
+    color: #000000; /* 例: 落ち着いたグレー */
     margin: 0;
     font-size: 0.9em;
 }
