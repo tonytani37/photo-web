@@ -20,7 +20,7 @@ body {
 /* 1. トップ画像セクション (画面いっぱいのヒーロー) */
 .hero-section {
     /* 画面の高さいっぱい */
-    height: 80vh;
+    height: 60vh;
     /* 背景画像の設定 (実際の画像URLに置き換えてください) */
     /* background-image: url('statics/img/20250906-P9060021.jpg'); */
     background-image: url('https://storage.googleapis.com/react-images-tonytani37/my-photo/20250906-P9060021.jpg');
@@ -196,7 +196,7 @@ body {
     cursor: pointer; /* カーソルをポインターにする */
     padding: 0;      /* パディングをリセット */
     
-    color: white; /* モーダルの背景が暗いため色を白に変更 */
+    color: rgb(82, 82, 82); /* モーダルの背景が暗いため色を白に変更 */
 }
 
 /* フッターセクション */
