@@ -102,15 +102,12 @@ function renderAllModals() {
         const hasPrev = globalIndex > 1;
         const hasNext = globalIndex < totalGalleryCount;
 
-        // 現在の写真が何ページ目にあるかを計算
-        const itemPage = Math.ceil(globalIndex / LIMIT);
-
         // モーダルウィンドウのHTMLを生成（前後ボタン付き）
         modalHTML += `
             <div id="${modalId}" class="modal-window">
-                <a href="#gallery?page=${itemPage}" class="modal-overlay"></a>
+                <a href="" class="modal-overlay"></a>
                 <div class="modal-content">
-                    <a href="#gallery?page=${itemPage}" class="modal-close-button">×</a>
+                    <a href="" class="modal-close-button">×</a>
                     
                     ${hasPrev ? `<a href="#modal-${globalIndex - 1}" class="modal-nav-button modal-prev-button" title="前の写真">&#8249;</a>` : ''}
                     ${hasNext ? `<a href="#modal-${globalIndex + 1}" class="modal-nav-button modal-next-button" title="次の写真">&#8250;</a>` : ''}
@@ -216,8 +213,8 @@ function handleKeyNavigation(e) {
         window.location.hash = `#modal-${currentModalId + 1}`;
     } else if (e.key === 'Escape') {
         // Escキー：モーダルを閉じる
-        const itemPage = Math.ceil(currentModalId / LIMIT);
-        window.location.hash = `#gallery?page=${itemPage}`;
+        // 修正: history.back()を使用し、モーダルを開く前のスクロール位置に戻る
+        history.back();
     }
 }
 
