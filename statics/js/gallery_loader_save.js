@@ -11,14 +11,10 @@ const MICROCMS_BASE_URL = `https://t-cms-api-281456272382.asia-northeast2.run.ap
 const photoGridElement = document.getElementById('photo-grid');
 const modalsContainerElement = document.getElementById('modals-container');
 // ページネーションコンテナのDOM要素
-const paginationContainerElement = document.getElementById('pagination-controls');
+const paginationContainerElement = document.getElementById('pagination-controls'); //
 
 // --- ページネーション設定 ---
-const LIMIT = 10; // 1ページあたりの表示件数
-
-// グローバル変数として現在のページとトータルカウントを保持
-let currentGalleryPage = 1;
-let totalGalleryCount = 0;
+const LIMIT = 10; // 1ページあたりの表示件数（11件以上で別ページという要件から10件を設定）
 
 /**
  * ページネーションコントロールのHTMLを生成・表示する
@@ -29,7 +25,7 @@ function renderPagination(currentPage, totalCount) {
     if (!paginationContainerElement) return;
 
     const totalPages = Math.ceil(totalCount / LIMIT);
-    if (totalPages <= 1) {
+    if (totalPages <= 1) { // 1ページのみの場合は非表示
         paginationContainerElement.innerHTML = '';
         return;
     }
@@ -37,16 +33,17 @@ function renderPagination(currentPage, totalCount) {
     let paginationHTML = '';
 
     // Prevボタン
-    paginationHTML += `<a href="?page=${currentPage - 1}" class="pagination-button ${currentPage === 1 ? 'disabled' : ''}">&laquo; 前へ</a>`;
+    paginationHTML += `<a href="?page=${currentPage - 1}" class="pagination-button ${currentPage === 1 ? 'disabled' : ''}">&laquo; 前へ</a>`; //
 
     // ページ番号ボタン
     for (let i = 1; i <= totalPages; i++) {
         const isActive = i === currentPage ? 'active' : '';
-        paginationHTML += `<a href="?page=${i}" class="pagination-button ${isActive}">${i}</a>`;
+        paginationHTML += `<a href="?page=${i}" class="pagination-button ${isActive}">${i}</a>`; //
     }
     
     // Nextボタン
-    paginationHTML += `<a href="?page=${currentPage + 1}" class="pagination-button ${currentPage === totalPages ? 'disabled' : ''}">次へ &raquo;</a>`;
+    paginationHTML += `<a href="?page=${currentPage + 1}" class="pagination-button ${currentPage === totalPages ? 'disabled' : ''}">次へ &raquo;</a>`; //
+
 
     paginationContainerElement.innerHTML = `<div class="pagination-wrapper">${paginationHTML}</div>`;
 }
@@ -62,9 +59,13 @@ async function loadGallery() {
 
     // URLから現在のページ番号を取得 (デフォルトは1ページ目)
     const urlParams = new URLSearchParams(window.location.search);
-    currentGalleryPage = parseInt(urlParams.get('page')) || 1;
-    const offset = (currentGalleryPage - 1) * LIMIT;
+    const currentPage = parseInt(urlParams.get('page')) || 1;
+    const offset = (currentPage - 1) * LIMIT;
 
+    // microCMS APIのURLを構築 (limitとoffsetを設定し、全件数も取得)
+    // microCMSでは全件数取得のために fields=image,comment,id が必要
+    // 管理画面の並び順に取得するためorders指定を行っている
+    // const fetchUrl = `${MICROCMS_BASE_URL}?limit=${LIMIT}&offset=${offset}&orders=-createdAt&fields=image,comment,id`; //
     const fetchUrl = `${MICROCMS_BASE_URL}?limit=${LIMIT}&offset=${offset}&orders=customOrder&fields=image,comment,id`;
     
     try {
@@ -76,10 +77,10 @@ async function loadGallery() {
 
         const data = await response.json();
         const galleryItems = data.contents; 
-        totalGalleryCount = data.totalCount || galleryItems.length;
+        const totalCount = data.totalCount || galleryItems.length; // 全件数を取得
 
         // ページネーションの表示
-        renderPagination(currentGalleryPage, totalGalleryCount);
+        renderPagination(currentPage, totalCount);
 
         if (!galleryItems || galleryItems.length === 0) {
             photoGridElement.innerHTML = '<p>表示する写真がありません。</p>';
@@ -90,9 +91,11 @@ async function loadGallery() {
         let modalHTML = '';
 
         galleryItems.forEach((item, index) => {
+            // モーダルのIDを動的に生成（ページをまたいでもユニークになるよう、オフセットを加味）
             const globalIndex = offset + index + 1;
             const modalId = `modal-${globalIndex}`; 
             
+            // GCSのURLを構築: ベースURL + ファイル名
             const imageFileName = item.image;
             const imageUrl = GCS_BASE_URL + imageFileName;
             const titleComment = item.comment;
@@ -104,22 +107,13 @@ async function loadGallery() {
                 </a>
             `;
 
-            // 前後の写真のインデックスを計算
-            const prevIndex = globalIndex - 1;
-            const nextIndex = globalIndex + 1;
-            const hasPrev = globalIndex > 1;
-            const hasNext = globalIndex < totalGalleryCount;
-
-            // モーダルウィンドウのHTMLを生成（前後ボタン付き）
+            // モーダルウィンドウのHTMLを生成
+            // モーダルを閉じるときに現在のページに戻るよう、URLにcurrentPageを含める
             modalHTML += `
                 <div id="${modalId}" class="modal-window">
-                    <a href="#gallery?page=${currentGalleryPage}" class="modal-overlay"></a>
+                    <a href="#gallery?page=${currentPage}" class="modal-overlay"></a>
                     <div class="modal-content">
-                        <a href="#gallery?page=${currentGalleryPage}" class="modal-close-button">×</a>
-                        
-                        ${hasPrev ? `<a href="#modal-${prevIndex}" class="modal-nav-button modal-prev-button" title="前の写真">&#8249;</a>` : ''}
-                        ${hasNext ? `<a href="#modal-${nextIndex}" class="modal-nav-button modal-next-button" title="次の写真">&#8250;</a>` : ''}
-                        
+                        <a href="#gallery?page=${currentPage}" class="modal-close-button">×</a>
                         <img src="${imageUrl}" alt="${titleComment}">
                         <p>${titleComment}</p>
                     </div>
@@ -131,37 +125,13 @@ async function loadGallery() {
         photoGridElement.innerHTML = gridHTML;
         modalsContainerElement.innerHTML = modalHTML;
         
-        // キーボードナビゲーションのイベントリスナーを設定
-        setupKeyboardNavigation();
+        // ページのトップに戻る（任意）
+        // window.scrollTo({ top: 0, behavior: 'smooth' });
 
     } catch (error) {
         console.error('ギャラリーのロード中にエラーが発生しました:', error);
         photoGridElement.innerHTML = '<p>データの読み込み中にエラーが発生しました。</p>';
     }
-}
-
-/**
- * キーボードナビゲーション（左右矢印キー）の設定
- */
-function setupKeyboardNavigation() {
-    document.addEventListener('keydown', (e) => {
-        // モーダルが開いているかチェック
-        const currentHash = window.location.hash;
-        if (!currentHash.startsWith('#modal-')) return;
-
-        const currentModalId = parseInt(currentHash.replace('#modal-', ''));
-
-        if (e.key === 'ArrowLeft' && currentModalId > 1) {
-            // 左矢印：前の写真へ
-            window.location.hash = `#modal-${currentModalId - 1}`;
-        } else if (e.key === 'ArrowRight' && currentModalId < totalGalleryCount) {
-            // 右矢印：次の写真へ
-            window.location.hash = `#modal-${currentModalId + 1}`;
-        } else if (e.key === 'Escape') {
-            // Escキー：モーダルを閉じる
-            window.location.hash = `#gallery?page=${currentGalleryPage}`;
-        }
-    });
 }
 
 // ページロード完了後にギャラリーをロード
