@@ -148,6 +148,7 @@ body {
     max-height: 95vh;
     overflow-y: auto; 
     padding-bottom: 30px; 
+    max-width: 900px; /* 例えば、最大幅を設定 */
 }
 
 .modal-content img {
@@ -272,4 +273,18 @@ body {
     background-color: #f9f9f9;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+/* モバイル対応 (例えば、画面幅が600px以下の場合) */
+@media (max-width: 600px) {
+    .modal-content {
+        width: 95%; /* モバイルでは横幅を広く取る */
+        max-width: none;
+    }
+    
+    .modal-nav-button {
+        font-size: 2em; /* ボタンを少し小さく */
+        width: 40px;
+        height: 40px;
+    }
 }
