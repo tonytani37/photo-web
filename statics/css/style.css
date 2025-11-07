@@ -20,7 +20,8 @@ body {
 /* 1. トップ画像セクション (画面いっぱいのヒーロー) */
 .hero-section {
     height: 60vh;
-    background-image: url('https://storage.googleapis.com/react-images-tonytani37/my-photo/20250906-P9060021.jpg');
+    /* background-image: url('https://storage.googleapis.com/react-images-tonytani37/my-photo/20250906-P9060021.jpg'); */
+    background-image: url('https://storage.googleapis.com/react-images-tonytani37/my-photo/background-image.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
